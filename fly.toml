@@ -1,15 +1,16 @@
 # fly.toml file for the Evapine project
 
 app = "evapine"
-primary_region = "jnb" # Johannesburg region
 
+# Define build settings
 [build]
-  builder = "heroku/buildpacks:20"
+  dockerfile = "Dockerfile"  # Tells Fly.io to use the Dockerfile in your root directory for deployment.
 
+# Configuration settings for environment variables
 [env]
-  PINECONE_API_KEY = "your_pinecone_api_key"
-  OPENAI_API_KEY = "your_openai_api_key"
+  PORT = "8080"  # Default port for Flask or other web apps running in the container.
 
+# Define services to expose ports to the outside world
 [[services]]
   internal_port = 8080
   protocol = "tcp"
@@ -24,11 +25,17 @@ primary_region = "jnb" # Johannesburg region
     port = 80
 
   [[services.ports]]
-    handlers = ["tls", "http"]
+    handlers = ["tls"]
     port = 443
 
   [[services.tcp_checks]]
+    grace_period = "1s"  # Allow a brief startup time.
     interval = "15s"
     timeout = "2s"
-    grace_period = "1m"
     restart_limit = 0
+
+# Optionally, you can add volumes configuration here if you need persistent storage:
+# [mounts]
+#   source = "my_volume"
+#   destination = "/data"
+
