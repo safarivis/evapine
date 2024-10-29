@@ -1,0 +1,5 @@
+pinecone-plugin-assistant
+openai
+flask
+# Add any other dependencies you need here
+

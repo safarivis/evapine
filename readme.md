@@ -94,3 +94,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ## Contact
 For more information, contact louisrdup@gmail.com.
+
