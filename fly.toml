@@ -1,17 +1,23 @@
-app = "evapine"  # This is the name of your app as seen on Fly.io
+# fly.toml file for the Evapine project
+
+app = "evapine"
+primary_region = "jnb" # Johannesburg region
 
 [build]
-  # Use the Heroku buildpack to automatically configure your Python environment
   builder = "heroku/buildpacks:20"
 
 [env]
-  # Environment variables, where you add your Pinecone and OpenAI API keys
-  PINECONE_API_KEY = "<insert_pinecone_api_key_here>"
-  OPENAI_API_KEY = "<insert_openai_api_key_here>"
+  PINECONE_API_KEY = "your_pinecone_api_key"
+  OPENAI_API_KEY = "your_openai_api_key"
 
 [[services]]
   internal_port = 8080
   protocol = "tcp"
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
 
   [[services.ports]]
     handlers = ["http"]
@@ -25,4 +31,4 @@ app = "evapine"  # This is the name of your app as seen on Fly.io
     interval = "15s"
     timeout = "2s"
     grace_period = "1m"
-    restart_limit = 6
+    restart_limit = 0
