@@ -1,0 +1,28 @@
+app = "evapine"  # This is the name of your app as seen on Fly.io
+
+[build]
+  # Use the Heroku buildpack to automatically configure your Python environment
+  builder = "heroku/buildpacks:20"
+
+[env]
+  # Environment variables, where you add your Pinecone and OpenAI API keys
+  PINECONE_API_KEY = "<insert_pinecone_api_key_here>"
+  OPENAI_API_KEY = "<insert_openai_api_key_here>"
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1m"
+    restart_limit = 6
