@@ -24,18 +24,23 @@ app = "evapine"
     handlers = ["http"]
     port = 80
 
-  [[services.ports]]
-    handlers = ["tls"]
-    port = 443
+# Suggestions for Improvement or Considerations
 
-  [[services.tcp_checks]]
-    grace_period = "1s"  # Allow a brief startup time.
-    interval = "15s"
-    timeout = "2s"
-    restart_limit = 0
+# HTTPS (Optional)
+# If you want your application to handle secure traffic (HTTPS), add an HTTPS handler
+[[services.ports]]
+  handlers = ["http", "tls"]
+  port = 443
 
-# Optionally, you can add volumes configuration here if you need persistent storage:
-# [mounts]
-#   source = "my_volume"
-#   destination = "/data"
+# Health Checks
+# Useful to add health checks to ensure Fly.io can automatically determine if your app is running correctly
+[services.health_checks]
+  path = "/"
+  interval = "10s"
+  timeout = "2s"
 
+# Volume (Optional)
+# If your app needs persistent storage, you may want to add a volume
+[mounts]
+  source = "evapine_data"
+  destination = "/data"

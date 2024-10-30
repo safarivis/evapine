@@ -1,5 +1,5 @@
-pinecone-plugin-assistant
+pinecone-client
 openai
 flask
-# Add any other dependencies you need here
+psycopg2-binary
 

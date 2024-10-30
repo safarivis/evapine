@@ -17,8 +17,8 @@ COPY . /app
 EXPOSE 8080
 
 # Define environment variables for Pinecone and OpenAI keys
-ENV PINECONE_API_KEY=${PINECONE_API_KEY}
-ENV OPENAI_API_KEY=${OPENAI_API_KEY}
+ENV PINECONE_API_KEY=$PINECONE_API_KEY
+ENV OPENAI_API_KEY=$OPENAI_API_KEY
 
 # Run the application
 CMD ["python", "integration.py"]
